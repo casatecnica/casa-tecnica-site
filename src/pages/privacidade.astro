@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { EMPRESA, waLink } from '../config';
+import WhatsIcone from '../components/WhatsIcone.astro';
+---
+
+<Base title="Privacidade | Casa Técnica" description="Como o site da Casa Técnica trata a sua privacidade: sem formulários, sem coleta de dados pessoais e sem cookies de rastreamento.">
+  <section class="secao">
+    <div class="wrap max-w-3xl">
+      <p class="eyebrow text-azul-escuro">Privacidade</p>
+      <h1 class="mt-2 text-[clamp(40px,6vw,64px)]">Sua privacidade neste site</h1>
+      <div class="mt-8 flex flex-col gap-6 text-lg leading-relaxed">
+        <div>
+          <h2 class="text-3xl">Não coletamos dados pelo site</h2>
+          <p class="mt-2 text-cinza">Este site não tem formulários, cadastro nem área de login. Ele não coleta nem guarda dados pessoais de quem visita.</p>
+        </div>
+        <div>
+          <h2 class="text-3xl">Contato pelo WhatsApp</h2>
+          <p class="mt-2 text-cinza">
+            Os botões de contato abrem uma conversa no WhatsApp com a {EMPRESA.nome}. O que você envia por lá segue a política de privacidade do próprio WhatsApp, e a loja usa essas informações só para atender você.
+          </p>
+        </div>
+        <div>
+          <h2 class="text-3xl">Sem cookies de rastreamento</h2>
+          <p class="mt-2 text-cinza">O site não usa cookies de rastreamento nem ferramentas de publicidade. O mapa da seção “Onde estamos” é carregado do Google Maps, que segue a política do Google.</p>
+        </div>
+        <div>
+          <h2 class="text-3xl">Dúvidas</h2>
+          <p class="mt-2 text-cinza">Fale com a gente pelo WhatsApp.</p>
+          <a href={waLink('Olá! Tenho uma dúvida sobre privacidade no site da Casa Técnica.')} target="_blank" rel="noopener" class="btn-whats mt-4"><WhatsIcone /> Chamar no WhatsApp</a>
+        </div>
+        <p><a href="/" class="font-semibold text-azul-escuro underline-offset-2 hover:underline">← Voltar para o início</a></p>
+      </div>
+    </div>
+  </section>
+</Base>

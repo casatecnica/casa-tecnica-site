@@ -1,0 +1,311 @@
+---
+import { Image } from 'astro:assets';
+import {
+  AirVent, ArrowDown, ArrowRight, Cable, ChevronDown, CircuitBoard, ClipboardList, Clock, GraduationCap, Hammer,
+  Headset, Lightbulb, MapPin, Navigation, Package, PackageCheck, Search, Snowflake, Sparkles, SprayCan, Store,
+  ThermometerSun, Users, Wrench, Zap,
+} from '@lucide/astro';
+import Base from '../layouts/Base.astro';
+import WhatsIcone from '../components/WhatsIcone.astro';
+import { EMPRESA, MENSAGENS, mapaEmbed, mapaLink, waLink } from '../config';
+
+import fachada from '../assets/fotos/fachada.jpg';
+import entrada from '../assets/fotos/entrada.jpg';
+import atendimento from '../assets/fotos/atendimento.jpg';
+import equipeCliente from '../assets/fotos/equipe-cliente.jpg';
+import equipeCostas from '../assets/fotos/equipe-costas-2.jpg';
+
+const confianca = [
+  { icone: Headset, texto: 'Atendimento técnico no balcão' },
+  { icone: Package, texto: 'Peças e equipamentos' },
+  { icone: ClipboardList, texto: 'Pedido separado pelo WhatsApp' },
+  { icone: GraduationCap, texto: 'Cursos de manutenção' },
+];
+
+const caminhos = [
+  { id: 'tecnicos', rotulo: 'Para técnicos', titulo: 'Balcão técnico', texto: 'Peças, gás e ferramentas com orientação para resolver o defeito de primeira.', fundo: 'bg-laranja', txt: 'text-navy', sub: 'text-navy/80', foto: equipeCliente, alt: 'Atendente da Casa Técnica conversando com um técnico no balcão' },
+  { id: 'sua-casa', rotulo: 'Para sua casa', titulo: 'Ar e limpeza', texto: 'Aparelhos de ar-condicionado e produtos de limpeza, com ajuda para escolher.', fundo: 'bg-azul', txt: 'text-white', sub: 'text-white/90', foto: entrada, alt: 'Entrada da loja Casa Técnica' },
+  { id: 'cursos', rotulo: 'Cursos', titulo: 'Capacitação', texto: 'Aprenda manutenção de ar-condicionado com quem trabalha na área.', fundo: 'bg-amarelo', txt: 'text-navy', sub: 'text-navy/80', foto: equipeCostas, alt: 'Integrante da equipe com o uniforme da Casa Técnica' },
+];
+
+const categorias = [
+  { icone: Snowflake, nome: 'Gás refrigerante' },
+  { icone: Zap, nome: 'Compressores e capacitores' },
+  { icone: CircuitBoard, nome: 'Placas, sensores e componentes' },
+  { icone: Cable, nome: 'Tubulação, isolamento e suportes' },
+  { icone: Wrench, nome: 'Ferramentas e instrumentos' },
+  { icone: SprayCan, nome: 'Limpeza e higienização' },
+];
+
+const passosPedido = [
+  'Mande a lista pelo WhatsApp',
+  'A loja confere as peças',
+  'Separa e avisa que está pronto',
+  'Você só passa para retirar',
+];
+
+const passosAtendimento = [
+  { icone: WhatsIcone, texto: 'Chame no WhatsApp ou venha à loja' },
+  { icone: Search, texto: 'Conte o defeito ou o que precisa' },
+  { icone: Lightbulb, texto: 'Indicamos a solução certa' },
+  { icone: PackageCheck, texto: 'Retire na loja ou combine pelo WhatsApp' },
+];
+
+const faq = [
+  { p: 'Qual o horário de atendimento?', r: `${EMPRESA.horario}.` },
+  { p: 'Onde fica a loja?', r: `${EMPRESA.endereco}.` },
+  { p: 'Vocês vendem para cliente final?', r: 'Sim: aparelhos de ar-condicionado e produtos de limpeza, com orientação para escolher o modelo certo.' },
+  { p: 'Como funciona o pedido separado?', r: 'Você manda a lista pelo WhatsApp, a loja confere as peças, separa e avisa quando estiver pronto. Aí é só passar para retirar.' },
+  { p: 'Vocês fazem instalação?', r: 'Fale com a gente pelo WhatsApp que indicamos o caminho.' },
+  { p: 'Quais as formas de pagamento?', r: 'Consulte pelo WhatsApp.' },
+];
+---
+
+<Base inicio>
+  <!-- 1. INÍCIO -->
+  <section id="inicio" class="relative overflow-hidden bg-navy text-white" aria-labelledby="titulo-inicio">
+    <!-- no celular, a fachada fica ao fundo com sobreposição escura -->
+    <div class="absolute inset-0 lg:hidden" aria-hidden="true">
+      <Image src={fachada} alt="" widths={[400, 596]} sizes="100vw" class="h-full w-full object-cover opacity-30" loading="eager" fetchpriority="high" />
+      <div class="absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/80 to-navy"></div>
+    </div>
+    <div class="wrap relative grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-[1.15fr_.85fr] lg:py-20">
+      <div class="max-w-2xl">
+        <p class="eyebrow text-laranja">Loja de refrigeração em Toledo (PR)</p>
+        <h1 id="titulo-inicio" class="mt-3 text-[clamp(44px,7vw,80px)]">Tudo em refrigeração, com solução técnica.</h1>
+        <p class="mt-5 text-[19px] leading-relaxed text-suave sm:text-xl">
+          Peças, equipamentos e cursos de ar-condicionado em Toledo. Você chega com o defeito e sai com a peça certa e a orientação para resolver.
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <a href={waLink(MENSAGENS.tecnico)} target="_blank" rel="noopener" class="btn-laranja">
+            <WhatsIcone /> Sou técnico: falar com o balcão
+          </a>
+          <a href={waLink(MENSAGENS.consumidor)} target="_blank" rel="noopener" class="btn-contorno">
+            <AirVent size={20} aria-hidden="true" /> Quero um ar-condicionado
+          </a>
+        </div>
+      </div>
+      <div class="relative hidden lg:block">
+        <Image src={fachada} alt="Fachada da loja Casa Técnica, na esquina da Av. Parigot de Souza, em Toledo (PR)" widths={[420, 596]} sizes="(min-width: 1024px) 440px, 100vw" class="ml-auto aspect-[4/5] w-full max-w-[440px] rounded-3xl object-cover ring-1 ring-white/10" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
+    <div class="relative grid h-2 grid-cols-3" aria-hidden="true">
+      <span class="bg-laranja"></span><span class="bg-amarelo"></span><span class="bg-azul"></span>
+    </div>
+  </section>
+
+  <!-- 2. FAIXA DE CONFIANÇA -->
+  <section aria-label="Por que a Casa Técnica" class="border-b border-linha bg-white">
+    <ul class="wrap grid grid-cols-2 gap-x-4 gap-y-6 py-8 md:grid-cols-4">
+      {confianca.map(({ icone: Icone, texto }) => (
+        <li class="flex items-center gap-3">
+          <span class="flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-gelo text-navy"><Icone size={24} aria-hidden="true" /></span>
+          <span class="text-[16px] font-semibold leading-snug">{texto}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 3. TRÊS CAMINHOS -->
+  <section class="secao" aria-labelledby="titulo-caminhos">
+    <div class="wrap">
+      <h2 id="titulo-caminhos" class="surgir text-[clamp(32px,4.5vw,48px)]">Uma loja, três caminhos</h2>
+      <p class="mt-2 max-w-2xl text-lg text-cinza">Escolha o que você procura. Cada público tem a sua cor, igual às três linhas do nosso logo.</p>
+      <ul class="mt-8 grid gap-5 md:grid-cols-3">
+        {caminhos.map((c) => (
+          <li class="surgir">
+            <a href={`#${c.id}`} class="card group flex h-full flex-col overflow-hidden transition-shadow hover:shadow-lg">
+              <div class={`${c.fundo} ${c.txt} px-6 pb-5 pt-6`}>
+                <p class={`eyebrow ${c.sub}`}>{c.rotulo}</p>
+                <h3 class="mt-1 text-[34px]">{c.titulo}</h3>
+              </div>
+              <Image src={c.foto} alt={c.alt} widths={[400, 560]} sizes="(min-width: 768px) 33vw, 100vw" class="aspect-[16/9] w-full object-cover" />
+              <div class="flex flex-1 flex-col gap-4 p-6">
+                <p class="flex-1 text-cinza">{c.texto}</p>
+                <span class="inline-flex items-center gap-2 font-semibold text-navy">
+                  Ver {c.rotulo.toLowerCase()} <ArrowDown size={18} class="transition-transform group-hover:translate-y-0.5" aria-hidden="true" />
+                </span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. PARA TÉCNICOS -->
+  <section id="tecnicos" class="secao border-t-[6px] border-laranja bg-white" aria-labelledby="titulo-tecnicos">
+    <div class="wrap">
+      <div class="grid items-center gap-10 lg:grid-cols-[1.2fr_.8fr]">
+        <div class="surgir">
+          <p class="eyebrow text-laranja-escuro">Para técnicos e assistências</p>
+          <h2 id="titulo-tecnicos" class="mt-2 text-[clamp(34px,5vw,56px)]">Para quem instala e faz manutenção</h2>
+          <p class="mt-4 max-w-2xl text-lg text-cinza">
+            Aqui você encontra peças para ar-condicionado em Toledo e, principalmente, alguém que entende do problema.
+            A gente olha o defeito junto com você e indica a solução, para o serviço sair resolvido de primeira, sem comprar a peça errada.
+          </p>
+          <a href={waLink(MENSAGENS.tecnico)} target="_blank" rel="noopener" class="btn-laranja mt-6">
+            <WhatsIcone /> Falar com o balcão técnico
+          </a>
+        </div>
+        <Image src={atendimento} alt="Atendimento no balcão da Casa Técnica, com clima de parceria" widths={[400, 554]} sizes="(min-width: 1024px) 400px, 100vw" class="surgir mx-auto aspect-[4/5] w-full max-w-[400px] rounded-3xl object-cover" />
+      </div>
+
+      <h3 class="mt-16 text-3xl">O que você encontra no balcão</h3>
+      <ul class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {categorias.map(({ icone: Icone, nome }) => (
+          <li class="surgir flex min-h-[76px] items-center gap-4 rounded-2xl border border-linha bg-gelo px-5 py-4">
+            <span class="flex h-12 w-12 flex-none items-center justify-center rounded-xl bg-laranja text-navy"><Icone size={24} aria-hidden="true" /></span>
+            <span class="text-[17px] font-semibold leading-snug">{nome}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-4 flex flex-col items-start gap-4 rounded-2xl bg-navy p-5 text-white sm:flex-row sm:items-center sm:justify-between sm:p-6">
+        <p class="font-display text-2xl">Não achou o que procura? Pergunte no balcão.</p>
+        <a href={waLink(MENSAGENS.tecnico)} target="_blank" rel="noopener" class="btn-whats w-full sm:w-auto"><WhatsIcone /> Perguntar no WhatsApp</a>
+      </div>
+
+      <!-- pedido separado -->
+      <div class="mt-16">
+        <p class="eyebrow text-laranja-escuro">Ganhe tempo no seu dia</p>
+        <h3 class="mt-2 text-[clamp(30px,4vw,42px)]">Pedido separado pelo WhatsApp</h3>
+        <ol class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {passosPedido.map((p, i) => (
+            <li class="surgir relative flex flex-col gap-3 rounded-2xl border border-linha bg-white p-5 shadow-[0_1px_2px_rgba(11,31,63,.04)]">
+              <span class="eyebrow text-laranja-escuro">{i + 1}º Passo</span>
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-laranja font-display text-2xl text-navy" aria-hidden="true">{i + 1}</span>
+              <span class="text-lg font-semibold leading-snug">{p}</span>
+              {i < passosPedido.length - 1 && (
+                <ArrowRight size={22} class="absolute -right-[18px] top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-gelo p-0.5 text-laranja-escuro lg:block" aria-hidden="true" />
+              )}
+            </li>
+          ))}
+        </ol>
+        <a href={waLink(MENSAGENS.pedidoSeparado)} target="_blank" rel="noopener" class="btn-laranja mt-6"><WhatsIcone /> Mandar minha lista</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PARA SUA CASA -->
+  <section id="sua-casa" class="secao border-t-[6px] border-azul" aria-labelledby="titulo-casa">
+    <div class="wrap">
+      <p class="eyebrow text-azul-escuro">Para sua casa</p>
+      <h2 id="titulo-casa" class="surgir mt-2 text-[clamp(34px,5vw,56px)]">Ar-condicionado e limpeza para a sua casa</h2>
+      <p class="mt-4 max-w-2xl text-lg text-cinza">Na loja de refrigeração que atende os técnicos da região, você também encontra o aparelho e os produtos para cuidar dele, com orientação de quem entende.</p>
+
+      <div class="mt-8 grid gap-5 md:grid-cols-2">
+        <article class="card surgir flex flex-col gap-3 p-6 sm:p-8">
+          <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-azul text-white"><AirVent size={28} aria-hidden="true" /></span>
+          <h3 class="text-[30px]">Aparelhos de ar-condicionado</h3>
+          <p class="text-cinza">Orientação para escolher o modelo certo para o seu ambiente, sem comprar a mais nem a menos.</p>
+        </article>
+        <article class="card surgir flex flex-col gap-3 p-6 sm:p-8">
+          <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-azul text-white"><Sparkles size={28} aria-hidden="true" /></span>
+          <h3 class="text-[30px]">Limpeza e higienização</h3>
+          <p class="text-cinza">Produtos para manter o aparelho limpo e funcionando bem, com dicas de como usar.</p>
+        </article>
+      </div>
+
+      <div class="surgir mt-5 grid items-center gap-6 rounded-2xl bg-azul p-6 text-white sm:p-8 md:grid-cols-[auto_1fr_auto]">
+        <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/15"><ThermometerSun size={34} aria-hidden="true" /></span>
+        <div>
+          <h3 class="text-[30px]">Qual potência eu preciso?</h3>
+          <p class="mt-1 text-white/90">Depende do tamanho do ambiente, de quanto sol ele pega e de quantas pessoas usam. Conte pra gente que ajudamos você a escolher.</p>
+        </div>
+        <a href={waLink(MENSAGENS.btus)} target="_blank" rel="noopener" class="btn bg-white text-azul-escuro hover:bg-azul-claro"><WhatsIcone /> Pedir ajuda para escolher</a>
+      </div>
+
+      <a href={waLink(MENSAGENS.consumidor)} target="_blank" rel="noopener" class="btn-azul mt-6"><WhatsIcone /> Pedir orçamento</a>
+    </div>
+  </section>
+
+  <!-- 6. CURSOS -->
+  <section id="cursos" class="secao border-t-[6px] border-amarelo bg-white" aria-labelledby="titulo-cursos">
+    <div class="wrap grid items-center gap-10 lg:grid-cols-[.8fr_1.2fr]">
+      <Image src={equipeCostas} alt="Integrante da equipe da Casa Técnica de costas, com o uniforme da loja" widths={[400, 549]} sizes="(min-width: 1024px) 400px, 100vw" class="surgir order-2 mx-auto aspect-[4/5] w-full max-w-[400px] rounded-3xl object-cover lg:order-1" />
+      <div class="order-1 lg:order-2">
+        <p class="eyebrow text-amarelo-escuro">Cursos</p>
+        <h2 id="titulo-cursos" class="surgir mt-2 text-[clamp(34px,5vw,56px)]">Aprenda manutenção de ar-condicionado</h2>
+        <p class="mt-4 max-w-2xl text-lg text-cinza">Cursos práticos para quem quer começar na área ou se aperfeiçoar, com quem trabalha com refrigeração todos os dias.</p>
+        <ul class="mt-6 grid gap-3 sm:grid-cols-3">
+          {[
+            { icone: Hammer, texto: 'Aulas práticas' },
+            { icone: Users, texto: 'Para iniciantes e técnicos' },
+            { icone: Store, texto: 'Turmas na própria loja' },
+          ].map(({ icone: Icone, texto }) => (
+            <li class="flex items-center gap-3 rounded-2xl bg-amarelo-claro px-4 py-4">
+              <span class="flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-amarelo text-navy"><Icone size={22} aria-hidden="true" /></span>
+              <span class="font-semibold leading-snug">{texto}</span>
+            </li>
+          ))}
+        </ul>
+        <a href={waLink(MENSAGENS.cursos)} target="_blank" rel="noopener" class="btn-amarelo mt-6"><WhatsIcone /> Quero saber da próxima turma</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. COMO FUNCIONA -->
+  <section id="como-funciona" class="secao" aria-labelledby="titulo-como">
+    <div class="wrap">
+      <h2 id="titulo-como" class="surgir text-[clamp(34px,5vw,56px)]">Como funciona o atendimento</h2>
+      <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {passosAtendimento.map(({ icone: Icone, texto }, i) => (
+          <li class="card surgir flex flex-col gap-4 p-6">
+            <div class="flex items-center justify-between">
+              <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-navy text-white"><Icone size={24} aria-hidden="true" /></span>
+              <span class="font-display text-4xl text-linha" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+            <span class="text-lg font-semibold leading-snug"><span class="sr-only">Passo {i + 1}: </span>{texto}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 8. PERGUNTAS FREQUENTES -->
+  <section id="perguntas" class="secao border-t border-linha bg-white" aria-labelledby="titulo-faq">
+    <div class="wrap max-w-3xl">
+      <h2 id="titulo-faq" class="surgir text-[clamp(34px,5vw,56px)]">Perguntas frequentes</h2>
+      <div class="mt-8 flex flex-col gap-3">
+        {faq.map(({ p, r }) => (
+          <details class="group rounded-2xl border border-linha bg-gelo open:bg-white">
+            <summary class="flex min-h-[56px] cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-5 py-3 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+              {p}
+              <ChevronDown size={22} class="flex-none text-cinza transition-transform group-open:rotate-180" aria-hidden="true" />
+            </summary>
+            <p class="px-5 pb-5 text-cinza">{r}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. ONDE ESTAMOS -->
+  <section id="onde-estamos" class="secao" aria-labelledby="titulo-onde">
+    <div class="wrap">
+      <h2 id="titulo-onde" class="surgir text-[clamp(34px,5vw,56px)]">Onde estamos</h2>
+      <div class="mt-8 grid gap-6 lg:grid-cols-[1fr_1.4fr]">
+        <div class="flex flex-col gap-5">
+          <Image src={entrada} alt="Entrada da loja Casa Técnica, com a marca na fachada" widths={[400, 552]} sizes="(min-width: 1024px) 480px, 100vw" class="aspect-[4/3] w-full rounded-3xl object-cover" />
+          <ul class="card flex flex-col gap-4 p-6 text-[17px]">
+            <li class="flex items-start gap-3"><MapPin size={22} class="mt-0.5 flex-none text-azul-escuro" aria-hidden="true" /><span>{EMPRESA.endereco}</span></li>
+            <li class="flex items-start gap-3"><Clock size={22} class="mt-0.5 flex-none text-azul-escuro" aria-hidden="true" /><span>{EMPRESA.horario}</span></li>
+          </ul>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a href={mapaLink} target="_blank" rel="noopener" class="btn-navy"><Navigation size={20} aria-hidden="true" /> Como chegar</a>
+            <a href={waLink()} target="_blank" rel="noopener" class="btn-whats"><WhatsIcone /> Chamar no WhatsApp</a>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-3xl border border-linha bg-white">
+          <iframe
+            title="Mapa com a localização da Casa Técnica em Toledo (PR)"
+            src={mapaEmbed}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="h-[360px] w-full border-0 lg:h-full lg:min-h-[520px]"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

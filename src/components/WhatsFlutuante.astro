@@ -1,0 +1,34 @@
+---
+import WhatsIcone from './WhatsIcone.astro';
+interface Props { href: string }
+const { href } = Astro.props;
+---
+<!-- Botão flutuante: fica no canto e some quando o rodapé (que já tem o contato) aparece, para não cobrir nada -->
+<a
+  id="whats-flutuante"
+  href={href}
+  target="_blank"
+  rel="noopener"
+  aria-label="Chamar a Casa Técnica no WhatsApp (abre em nova aba)"
+  style="opacity:0;pointer-events:none" tabindex="-1"
+  class="fixed bottom-4 right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-whats text-white shadow-[0_6px_20px_rgba(11,31,63,.35)] ring-4 ring-white/70 transition-[opacity,transform] hover:bg-whats-escuro sm:bottom-6 sm:right-6 sm:h-16 sm:w-16"
+>
+  <WhatsIcone size={28} />
+</a>
+
+<script>
+  // some no topo (onde já há botões de WhatsApp) e no rodapé (que já tem o contato)
+  const botao = document.getElementById('whats-flutuante');
+  const alvos = [document.getElementById('inicio'), document.querySelector('footer')].filter(Boolean) as Element[];
+  if (botao && alvos.length && 'IntersectionObserver' in window) {
+    const visiveis = new Set<Element>();
+    const obs = new IntersectionObserver((entradas) => {
+      for (const e of entradas) e.isIntersecting ? visiveis.add(e.target) : visiveis.delete(e.target);
+      const esconder = visiveis.size > 0;
+      botao.style.opacity = esconder ? '0' : '1';
+      botao.style.pointerEvents = esconder ? 'none' : '';
+      botao.tabIndex = esconder ? -1 : 0;
+    }, { threshold: 0.15 });
+    alvos.forEach((a) => obs.observe(a));
+  }
+</script>

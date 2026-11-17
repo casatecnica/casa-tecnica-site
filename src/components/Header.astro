@@ -1,0 +1,95 @@
+---
+import { Image } from 'astro:assets';
+import { Menu, X } from '@lucide/astro';
+import logo from '../assets/logo/casa-tecnica.png';
+import { MENSAGENS, waLink } from '../config';
+import WhatsIcone from './WhatsIcone.astro';
+
+interface Props { inicio?: boolean }
+const { inicio = false } = Astro.props;
+const base = inicio ? '' : '/';
+
+const MENU = [
+  { href: '#tecnicos', rotulo: 'Para técnicos' },
+  { href: '#sua-casa', rotulo: 'Para sua casa' },
+  { href: '#cursos', rotulo: 'Cursos' },
+  { href: '#como-funciona', rotulo: 'Como funciona' },
+  { href: '#onde-estamos', rotulo: 'Onde estamos' },
+];
+---
+
+<header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-navy text-white">
+  <div class="wrap flex h-[72px] items-center gap-4">
+    <a href={inicio ? '#inicio' : '/'} class="flex shrink-0 items-center gap-2.5" aria-label="Casa Técnica, ir para o início">
+      <Image src={logo} alt="" width={44} height={44} class="h-11 w-11" loading="eager" />
+      <span class="font-display text-[22px] font-bold uppercase tracking-wide">Casa Técnica</span>
+    </a>
+
+    <nav aria-label="Menu principal" class="ml-auto hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {MENU.map((m) => (
+          <li><a href={base + m.href} class="rounded-lg px-3 py-2 text-[16px] font-medium text-suave transition-colors hover:bg-navy-2 hover:text-white">{m.rotulo}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <a href={waLink(MENSAGENS.geral)} target="_blank" rel="noopener" class="btn-whats ml-auto hidden min-h-[44px] px-4 py-2 text-[16px] sm:inline-flex lg:ml-2">
+      <WhatsIcone size={20} /> Chamar no WhatsApp
+    </a>
+
+    <button
+      id="menu-abrir"
+      type="button"
+      class="ml-auto flex h-12 w-12 items-center justify-center rounded-xl text-white hover:bg-navy-2 sm:ml-1 lg:hidden"
+      aria-controls="menu-gaveta"
+      aria-expanded="false"
+      aria-label="Abrir menu"
+    >
+      <Menu size={26} aria-hidden="true" />
+    </button>
+  </div>
+
+  <!-- gaveta do celular -->
+  <div id="menu-fundo" class="fixed inset-0 top-[72px] z-40 hidden bg-navy/60 lg:hidden"></div>
+  <nav
+    id="menu-gaveta"
+    aria-label="Menu principal"
+    class="fixed bottom-0 right-0 top-[72px] z-50 hidden w-[min(320px,86vw)] flex-col gap-1 overflow-y-auto bg-navy px-4 py-5 shadow-2xl lg:hidden"
+  >
+    <button id="menu-fechar" type="button" class="mb-2 flex h-12 items-center gap-2 self-end rounded-xl px-3 text-suave hover:bg-navy-2 hover:text-white" aria-label="Fechar menu">
+      <X size={22} aria-hidden="true" /> Fechar
+    </button>
+    {MENU.map((m) => (
+      <a href={base + m.href} class="menu-link flex min-h-[52px] items-center rounded-xl px-4 text-[18px] font-semibold text-white hover:bg-navy-2">{m.rotulo}</a>
+    ))}
+    <a href={waLink(MENSAGENS.geral)} target="_blank" rel="noopener" class="btn-whats mt-4">
+      <WhatsIcone size={20} /> Chamar no WhatsApp
+    </a>
+  </nav>
+</header>
+<div class="h-[72px]" aria-hidden="true"></div>
+
+<script>
+  const abrir = document.getElementById('menu-abrir') as HTMLButtonElement | null;
+  const fechar = document.getElementById('menu-fechar') as HTMLButtonElement | null;
+  const gaveta = document.getElementById('menu-gaveta');
+  const fundo = document.getElementById('menu-fundo');
+
+  function definir(aberto: boolean) {
+    if (!abrir || !gaveta || !fundo) return;
+    gaveta.classList.toggle('hidden', !aberto);
+    gaveta.classList.toggle('flex', aberto);
+    fundo.classList.toggle('hidden', !aberto);
+    abrir.setAttribute('aria-expanded', String(aberto));
+    document.body.style.overflow = aberto ? 'hidden' : '';
+    if (aberto) fechar?.focus();
+    else abrir.focus({ preventScroll: true });
+  }
+  abrir?.addEventListener('click', () => definir(abrir.getAttribute('aria-expanded') !== 'true'));
+  fechar?.addEventListener('click', () => definir(false));
+  fundo?.addEventListener('click', () => definir(false));
+  gaveta?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => definir(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && abrir?.getAttribute('aria-expanded') === 'true') definir(false);
+  });
+</script>

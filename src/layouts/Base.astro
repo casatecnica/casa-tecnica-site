@@ -1,0 +1,100 @@
+---
+import '../styles/global.css';
+import { EMPRESA, ENDERECO_ESTRUTURADO, waLink, telefoneFormatado } from '../config';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsFlutuante from '../components/WhatsFlutuante.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** página inicial mostra cabeçalho com âncoras da própria página */
+  inicio?: boolean;
+}
+
+const {
+  title = 'Casa Técnica | Peças e cursos de ar-condicionado em Toledo - PR',
+  description = `Loja de refrigeração em Toledo (PR): peças para ar-condicionado, gás refrigerante, equipamentos e curso de ar-condicionado. Atendimento técnico para assistências e para sua casa. WhatsApp ${telefoneFormatado()}.`,
+  inicio = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? EMPRESA.dominio).href;
+const ogImage = new URL('/og-casa-tecnica.jpg', Astro.site ?? EMPRESA.dominio).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HVACBusiness',
+  name: EMPRESA.nome,
+  description: EMPRESA.descricao,
+  slogan: EMPRESA.slogan,
+  url: EMPRESA.dominio,
+  image: ogImage,
+  logo: new URL('/icon-512.png', EMPRESA.dominio).href,
+  telephone: `+${EMPRESA.whatsapp}`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: ENDERECO_ESTRUTURADO.rua,
+    addressLocality: ENDERECO_ESTRUTURADO.cidade,
+    addressRegion: ENDERECO_ESTRUTURADO.estado,
+    postalCode: ENDERECO_ESTRUTURADO.cep,
+    addressCountry: ENDERECO_ESTRUTURADO.pais,
+  },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '12:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '13:00', closes: '18:00' },
+  ],
+  sameAs: [EMPRESA.instagram],
+  areaServed: 'Toledo - PR',
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#0B1F3F" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={EMPRESA.nome} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Fachada da loja Casa Técnica em Toledo (PR) com o logo e o slogan" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!--
+      Medição de visitas (opcional): Cloudflare Web Analytics não usa cookies.
+      Para ativar, crie o site no painel da Cloudflare (Analytics > Web Analytics),
+      copie o token e tire o comentário da linha abaixo.
+      <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "COLE_O_TOKEN_AQUI"}'></script>
+    -->
+  </head>
+  <body>
+    <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:font-semibold focus:text-navy">
+      Pular para o conteúdo
+    </a>
+    <Header inicio={inicio} />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsFlutuante href={waLink()} />
+  </body>
+</html>

@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import { Camera, Clock, MapPin } from '@lucide/astro';
+import logo from '../assets/logo/casa-tecnica.png';
+import { EMPRESA, cnpj, mapaLink, telefoneFormatado, waLink } from '../config';
+import WhatsIcone from './WhatsIcone.astro';
+
+const ano = new Date().getFullYear();
+---
+
+<footer class="bg-navy text-suave">
+  <div class="wrap grid gap-10 py-12 md:grid-cols-[1.3fr_1fr_1fr]">
+    <div>
+      <a href="/" class="flex items-center gap-3 text-white">
+        <Image src={logo} alt="" width={52} height={52} class="h-12 w-12" />
+        <span class="font-display text-2xl font-bold uppercase tracking-wide">{EMPRESA.nome}</span>
+      </a>
+      <p class="mt-3 max-w-xs">{EMPRESA.slogan}.</p>
+      <div class="mt-4 flex gap-1.5" aria-hidden="true">
+        <i class="h-1.5 w-10 rounded bg-laranja"></i><i class="h-1.5 w-10 rounded bg-amarelo"></i><i class="h-1.5 w-10 rounded bg-azul"></i>
+      </div>
+    </div>
+
+    <div>
+      <h2 class="mb-3 font-display text-xl text-white">Contato</h2>
+      <ul class="flex flex-col gap-3 text-[16px]">
+        <li>
+          <a href={waLink()} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white hover:underline">
+            <WhatsIcone size={18} /> WhatsApp {telefoneFormatado()}
+          </a>
+        </li>
+        <li>
+          <a href={EMPRESA.instagram} target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-white hover:underline">
+            <Camera size={18} aria-hidden="true" /> Instagram @{EMPRESA.instagram.split('/').pop()}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="mb-3 font-display text-xl text-white">Onde estamos</h2>
+      <ul class="flex flex-col gap-3 text-[16px]">
+        <li class="flex items-start gap-2">
+          <MapPin size={18} class="mt-1 flex-none" aria-hidden="true" />
+          <a href={mapaLink} target="_blank" rel="noopener" class="hover:text-white hover:underline">{EMPRESA.endereco}</a>
+        </li>
+        <li class="flex items-start gap-2"><Clock size={18} class="mt-1 flex-none" aria-hidden="true" /> {EMPRESA.horario}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="wrap flex flex-col gap-2 py-5 text-[14px] sm:flex-row sm:items-center sm:justify-between">
+      <p>
+        © {ano} {EMPRESA.nome}{cnpj && <span> · CNPJ {cnpj}</span>}
+        <span aria-hidden="true"> · </span><a href="/privacidade" class="underline-offset-2 hover:text-white hover:underline">Privacidade</a>
+      </p>
+      <p class="text-[13px] text-suave/80">Site desenvolvido pela CRESCERE Consultoria</p>
+    </div>
+  </div>
+</footer>
