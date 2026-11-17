@@ -11,7 +11,7 @@ export const EMPRESA = {
   endereco: 'Av. Parigot de Souza, 2500, sala A, Vila Industrial, Toledo - PR, 85904-270',
   horario: 'Segunda a sexta, das 8h às 12h e das 13h às 18h',
   desde: 2025,
-  dominio: 'https://casatecnicapr.com.br', // provisório: trocar quando a empresa registrar o domínio
+  dominio: 'https://casatecnica.pages.dev', // endereço atual; trocar pelo domínio próprio quando a empresa registrar
 };
 
 /** CNPJ da empresa. Deixe vazio para não aparecer no rodapé. Ex.: '00.000.000/0001-00' */
