@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import {
-  AirVent, ArrowDown, ArrowRight, Cable, ChevronDown, CircuitBoard, ClipboardList, Clock, GraduationCap, Hammer,
+  AirVent, ArrowDown, ArrowRight, Cable, CircuitBoard, ClipboardList, Clock, GraduationCap, Hammer,
   Headset, Lightbulb, MapPin, Navigation, Package, PackageCheck, Search, Snowflake, Sparkles, SprayCan, Store,
   ThermometerSun, Users, Wrench, Zap,
 } from '@lucide/astro';
@@ -25,7 +25,7 @@ const confianca = [
 const caminhos = [
   { id: 'tecnicos', rotulo: 'Para técnicos', titulo: 'Balcão técnico', texto: 'Peças, gás e ferramentas com orientação para resolver o defeito de primeira.', fundo: 'bg-laranja', txt: 'text-navy', sub: 'text-navy/80', foto: equipeCliente, alt: 'Atendente da Casa Técnica conversando com um técnico no balcão' },
   { id: 'sua-casa', rotulo: 'Para sua casa', titulo: 'Ar e limpeza', texto: 'Aparelhos de ar-condicionado e produtos de limpeza, com ajuda para escolher.', fundo: 'bg-azul', txt: 'text-white', sub: 'text-white/90', foto: entrada, alt: 'Entrada da loja Casa Técnica' },
-  { id: 'cursos', rotulo: 'Cursos', titulo: 'Capacitação', texto: 'Aprenda manutenção de ar-condicionado com quem trabalha na área.', fundo: 'bg-amarelo', txt: 'text-navy', sub: 'text-navy/80', foto: equipeCostas, alt: 'Integrante da equipe com o uniforme da Casa Técnica' },
+  { id: 'cursos', rotulo: 'Cursos', titulo: 'Capacitação', texto: 'Cursos de refrigeração e climatização com quem trabalha na área.', fundo: 'bg-amarelo', txt: 'text-navy', sub: 'text-navy/80', foto: equipeCostas, alt: 'Integrante da equipe com o uniforme da Casa Técnica' },
 ];
 
 const categorias = [
@@ -50,15 +50,6 @@ const passosAtendimento = [
   { icone: Lightbulb, texto: 'Indicamos a solução certa' },
   { icone: PackageCheck, texto: 'Retire na loja ou combine pelo WhatsApp' },
 ];
-
-const faq = [
-  { p: 'Qual o horário de atendimento?', r: `${EMPRESA.horario}.` },
-  { p: 'Onde fica a loja?', r: `${EMPRESA.endereco}.` },
-  { p: 'Vocês vendem para cliente final?', r: 'Sim: aparelhos de ar-condicionado e produtos de limpeza, com orientação para escolher o modelo certo.' },
-  { p: 'Como funciona o pedido separado?', r: 'Você manda a lista pelo WhatsApp, a loja confere as peças, separa e avisa quando estiver pronto. Aí é só passar para retirar.' },
-  { p: 'Vocês fazem instalação?', r: 'Fale com a gente pelo WhatsApp que indicamos o caminho.' },
-  { p: 'Quais as formas de pagamento?', r: 'Consulte pelo WhatsApp.' },
-];
 ---
 
 <Base inicio>
@@ -74,7 +65,7 @@ const faq = [
         <p class="eyebrow text-laranja">Loja de refrigeração em Toledo (PR)</p>
         <h1 id="titulo-inicio" class="mt-3 text-[clamp(44px,7vw,80px)]">Tudo em refrigeração, com solução técnica.</h1>
         <p class="mt-5 text-[19px] leading-relaxed text-suave sm:text-xl">
-          Peças, equipamentos e cursos de ar-condicionado em Toledo. Você chega com o defeito e sai com a peça certa e a orientação para resolver.
+          Peças, equipamentos e cursos de refrigeração e climatização em Toledo. Você chega com o defeito e sai com a peça certa e a orientação para resolver.
         </p>
         <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <a href={waLink(MENSAGENS.tecnico)} target="_blank" rel="noopener" class="btn-laranja">
@@ -110,7 +101,7 @@ const faq = [
   <section class="secao" aria-labelledby="titulo-caminhos">
     <div class="wrap">
       <h2 id="titulo-caminhos" class="surgir text-[clamp(32px,4.5vw,48px)]">Uma loja, três caminhos</h2>
-      <p class="mt-2 max-w-2xl text-lg text-cinza">Escolha o que você procura. Cada público tem a sua cor, igual às três linhas do nosso logo.</p>
+      <p class="mt-2 max-w-2xl text-lg text-cinza">Escolha o que você procura.</p>
       <ul class="mt-8 grid gap-5 md:grid-cols-3">
         {caminhos.map((c) => (
           <li class="surgir">
@@ -225,7 +216,7 @@ const faq = [
       <Image src={equipeCostas} alt="Integrante da equipe da Casa Técnica de costas, com o uniforme da loja" widths={[400, 549]} sizes="(min-width: 1024px) 400px, 100vw" class="surgir order-2 mx-auto aspect-[4/5] w-full max-w-[400px] rounded-3xl object-cover lg:order-1" />
       <div class="order-1 lg:order-2">
         <p class="eyebrow text-amarelo-escuro">Cursos</p>
-        <h2 id="titulo-cursos" class="surgir mt-2 text-[clamp(34px,5vw,56px)]">Aprenda manutenção de ar-condicionado</h2>
+        <h2 id="titulo-cursos" class="surgir mt-2 text-[clamp(34px,5vw,56px)]">Capacitação em refrigeração e climatização</h2>
         <p class="mt-4 max-w-2xl text-lg text-cinza">Cursos práticos para quem quer começar na área ou se aperfeiçoar, com quem trabalha com refrigeração todos os dias.</p>
         <ul class="mt-6 grid gap-3 sm:grid-cols-3">
           {[
@@ -262,25 +253,7 @@ const faq = [
     </div>
   </section>
 
-  <!-- 8. PERGUNTAS FREQUENTES -->
-  <section id="perguntas" class="secao border-t border-linha bg-white" aria-labelledby="titulo-faq">
-    <div class="wrap max-w-3xl">
-      <h2 id="titulo-faq" class="surgir text-[clamp(34px,5vw,56px)]">Perguntas frequentes</h2>
-      <div class="mt-8 flex flex-col gap-3">
-        {faq.map(({ p, r }) => (
-          <details class="group rounded-2xl border border-linha bg-gelo open:bg-white">
-            <summary class="flex min-h-[56px] cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-5 py-3 text-lg font-semibold [&::-webkit-details-marker]:hidden">
-              {p}
-              <ChevronDown size={22} class="flex-none text-cinza transition-transform group-open:rotate-180" aria-hidden="true" />
-            </summary>
-            <p class="px-5 pb-5 text-cinza">{r}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. ONDE ESTAMOS -->
+  <!-- 8. ONDE ESTAMOS -->
   <section id="onde-estamos" class="secao" aria-labelledby="titulo-onde">
     <div class="wrap">
       <h2 id="titulo-onde" class="surgir text-[clamp(34px,5vw,56px)]">Onde estamos</h2>

@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { EMPRESA, ENDERECO_ESTRUTURADO, waLink, telefoneFormatado } from '../config';
+import { EMPRESA, ENDERECO_ESTRUTURADO, cnpj, waLink, telefoneFormatado } from '../config';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsFlutuante from '../components/WhatsFlutuante.astro';
@@ -13,8 +13,8 @@ interface Props {
 }
 
 const {
-  title = 'Casa Técnica | Peças e cursos de ar-condicionado em Toledo - PR',
-  description = `Loja de refrigeração em Toledo (PR): peças para ar-condicionado, gás refrigerante, equipamentos e curso de ar-condicionado. Atendimento técnico para assistências e para sua casa. WhatsApp ${telefoneFormatado()}.`,
+  title = 'Casa Técnica | Peças, equipamentos e cursos de refrigeração em Toledo - PR',
+  description = `Loja de refrigeração em Toledo (PR): peças para ar-condicionado, gás refrigerante, equipamentos e cursos de refrigeração, climatização e ar-condicionado. Atendimento técnico para assistências e para sua casa. WhatsApp ${telefoneFormatado()}.`,
   inicio = false,
 } = Astro.props;
 
@@ -45,6 +45,7 @@ const jsonLd = {
   ],
   sameAs: [EMPRESA.instagram],
   areaServed: 'Toledo - PR',
+  ...(cnpj ? { taxID: cnpj } : {}),
 };
 ---
 

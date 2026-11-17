@@ -15,7 +15,7 @@ export const EMPRESA = {
 };
 
 /** CNPJ da empresa. Deixe vazio para não aparecer no rodapé. Ex.: '00.000.000/0001-00' */
-export const cnpj = '';
+export const cnpj = '32.897.133/0001-07';
 
 /** Partes do endereço, usadas nos dados estruturados (Google). */
 export const ENDERECO_ESTRUTURADO = {
@@ -33,7 +33,7 @@ export const MENSAGENS = {
   pedidoSeparado: 'Olá! Quero deixar um pedido separado para retirar. Segue minha lista:',
   consumidor: 'Olá! Quero um orçamento de ar-condicionado / produtos de limpeza.',
   btus: 'Olá! Quero ajuda para escolher o ar-condicionado certo. O ambiente tem __ m².',
-  cursos: 'Olá! Quero saber sobre a próxima turma do curso de ar-condicionado.',
+  cursos: 'Olá! Quero saber sobre os cursos e a próxima turma.',
   geral: 'Olá! Vim pelo site da Casa Técnica.',
 };
 

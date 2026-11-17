@@ -32,8 +32,8 @@ const texto = `
   <text x="72" y="268" class="t" font-size="74">Casa Técnica</text>
   <text x="72" y="350" class="t" font-size="50">Tudo em refrigeração,</text>
   <text x="72" y="406" class="t" font-size="50">com solução técnica.</text>
-  <text x="72" y="466" class="s" font-size="28">Peças, equipamentos e cursos de ar-condicionado</text>
-  <text x="72" y="502" class="s" font-size="28">em Toledo (PR)</text>
+  <text x="72" y="466" class="s" font-size="28">Peças, equipamentos e cursos de refrigeração</text>
+  <text x="72" y="502" class="s" font-size="28">e climatização em Toledo (PR)</text>
   <rect x="72" y="548" width="70" height="10" rx="5" fill="#F28C1B"/>
   <rect x="152" y="548" width="70" height="10" rx="5" fill="#F7C325"/>
   <rect x="232" y="548" width="70" height="10" rx="5" fill="#1F6FC4"/>
